@@ -23,27 +23,33 @@ void entrySentence(string inp){
 }
 
 int main(){
-
-  string input;
-  string t;
-  getline(cin,t);
-  istringstream iss(t);
-  while(iss>>input){
-    string toSentence="";
-    
-    for (int a=0;input.length()>a;++a){
-      if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39)) toSentence += input[a];
-    
-      else {
-	if (toSentence == "");
-	else entrySentence(toSentence);
-
-	toSentence = "";
-      }
-    }
-    //entrySentence(input);
-  }
+  READ("hound.txt");
   
+  while(!cin.eof()){
+
+		  string input;
+		  string t;
+		  getline(cin,t);
+		  istringstream iss(t);
+		  while(iss>>input){
+		    //cout<<input<<" ";
+		
+		    string toSentence="";
+		    
+		    for (int a=0;input.length()>a;++a){
+		      if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39)) toSentence += input[a];
+		    
+		      else {
+			if (toSentence == "");
+			else entrySentence(toSentence);
+
+			toSentence = "";
+		      }
+		    }
+		    //entrySentence(input);
+		  }//end while loop
+  }
+	  
   for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ //test outuput map
     cout<< a->first<<" "<<a->second<<endl;
   }
