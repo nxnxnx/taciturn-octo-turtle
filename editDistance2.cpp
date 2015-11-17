@@ -174,7 +174,7 @@ int main(){
 
    /*if (ketemu){
      Qsort(0, words.size());
-     //Qsort2(0, words.size());
+     //Qsort2(0, words.size());]
      }*/
 
 
@@ -183,7 +183,8 @@ int main(){
    }
 
     if(!ketemu){
-      cout << "Nothing to Found" << endl;
+      string Kappa = "( ͡° ͜ʖ ͡°)";
+      cout << Kappa << endl;
     }
 
 }//end
