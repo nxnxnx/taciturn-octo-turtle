@@ -3,10 +3,13 @@
 #include <stdio.h>
 #include <string>
 #include <map>
-#include <map>
+#include <algorithm>
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <string>
+#include <utility>
 
 #define WRITE(f) freopen(f,"w",stdin)
 
@@ -16,6 +19,7 @@ map <string,int> sentence;
 map <string,int> distanceValue;
 
 void entrySentence(string inp){
+  transform(inp.begin(), inp.end(), inp.begin(), ::tolower);
   if (sentence[inp] ==NULL) sentence[inp] = 1;
   else sentence[inp]++;
 
