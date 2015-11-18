@@ -27,8 +27,14 @@ void entrySentence(string inp){
 
 }//end entrySentence
 
-void swap(int &a, int &b){
+void swapFirst(int &a, int &b){
   int temp = a;
+  a = b;
+  b = temp;
+}
+
+void swapSecond(string a, string b){
+  string temp = a;
   a = b;
   b = temp;
 }
@@ -47,7 +53,8 @@ void Qsort(int a, int b){
       while((words.begin()+right)->first > pivot ) right--;
 
       if (left <= right){
-	swap( ((words.begin()+left)->first),((words.begin()+right)->first) );
+	swapFirst( ((words.begin()+left)->first),((words.begin()+right)->first) );
+	swapSecond((words.begin()+left)->second,(words.begin()+right)->second);
 	left++;
 	right++;
       }
@@ -170,7 +177,7 @@ int main(){
     }
   }
 
-   sort(words.begin(),words.end()); //butuh function sort sendiri
+   //sort(words.begin(),words.end()); //butuh function sort sendiri
 
    /*if (ketemu){
      Qsort(0, words.size());
@@ -179,11 +186,11 @@ int main(){
 
 
    for (VECTOR::const_iterator pos = words.begin(); pos!=words.end();++pos){
-     cout<< pos->second <<"\t"<<pos->first<<"\t"<<sentence[pos->second]<< endl;
+     cout<< pos->second <<" \t| "<<pos->first<<" \t| "<<sentence[pos->second]<< endl;
    }
 
     if(!ketemu){
-      string Kappa = "( ͡° ͜ʖ ͡°)";
+      string Kappa = "( ͡° ͜ʖ ͡°) You're spooked by dongerino. Move along ( ͡° ͜ʖ ͡°)\n";
       cout << Kappa << endl;
     }
 
