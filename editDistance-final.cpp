@@ -189,8 +189,8 @@ int main(){
    sort(words.begin(),words.end()); //butuh function sort sendiri
 
    if (ketemu){
-     Qsort(0, words.size()-1);
-     //sort(words.begin(),words.end()); buat perbandingan
+     //Qsort(0, words.size()-1);
+     sort(words.begin(),words.end()); //buat perbandingan
      }
 
    
