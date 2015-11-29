@@ -1,4 +1,4 @@
-//editDistance2.cpp
+//editDistance-final.cpp
 
 #include <stdio.h>
 #include <string>
@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <iomanip>
 
 
 using namespace std;
@@ -39,15 +40,7 @@ void swapSecond(string &a, string &b){
   b = temp;
 }//end swap2nd
 
-/*
 
-   
-   for (VECTOR::const_iterator pos = words.begin(); pos!=words.end();++pos){
-     cout<< pos->second <<" \t| "<<pos->first<<" \t| "<<sentence[pos->second]<< endl;
-   }
-
-
- */
 void Qsort(int a, int b){
   int pivot, left, right;
 
@@ -56,22 +49,48 @@ void Qsort(int a, int b){
     pivot = (words.begin()+tengah)->first;
     left = a;
     right = b;
-    
+
     while (left <= right){
       while((words.begin()+left)->first < pivot ) left++;
       while((words.begin()+right)->first > pivot ) right--;
-      
+
       if (left <= right){
 	swapFirst( ((words.begin()+left)->first),((words.begin()+right)->first) );
 	swapSecond((words.begin()+left)->second,(words.begin()+right)->second);
 	left++;
 	right--;
       }
-      
+
       }//end while(left<=right)
   }//end if
 
 }//end Qsort
+
+
+void QsortString(int a, int b){
+  string pivot;
+  int left, right;
+
+  if (b>a){
+    int tengah = int((a+b)/2);
+    pivot = (words.begin()+tengah)->second;
+    left = a;
+    right = b;
+
+    while (left <= right){
+      while((words.begin()+left)->second < pivot) left++;
+      while((words.begin()+right)->second > pivot) right--;
+
+      if (left <= right){
+	swapFirst( ((words.begin()+left)->first),((words.begin()+right)->first) );
+	swapSecond((words.begin()+left)->second,(words.begin()+right)->second);
+	left++;
+	right--;
+      }
+
+    }
+  }
+}//end qsortstring
 
 
 size_t edit_distance(const std::string &s1, const std::string &s2) // http://rosettacode.org/wiki/Levenshtein_distance#C.2B.2B
@@ -128,13 +147,12 @@ int main(){
 		  getline(data,t);
 		  istringstream iss(t);
 		  while(iss>>input){
-		    //cout<<input<<" ";
 
 		    string toSentence="";
 
 		    for (int a=0;input.length()>a;++a){
-		      if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39)) toSentence += input[a];
-
+		      if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39))
+                toSentence += input[a];
 		      else {
 			if (toSentence == "");
 			else entrySentence(toSentence);
@@ -146,18 +164,20 @@ int main(){
 		  }//end while loop
   }
 
-  for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ //test outuput map
+    data.close();
+
+ /* for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ //test outuput map
     //cout<< a->first<<" "<<a->second<<endl;
-  }
+  } */
 
     int maxDistance;
     string stringToTest;
 
-
     cout << endl << "Masukkan String untuk di test" << endl;
-    cin >> stringToTest;
+    getline(cin,stringToTest,'\n');
+    cout << endl;
 
-    cout << endl << "Masukkan Distance Maksimal" << endl;
+    cout << endl << "Masukkan Distance Maksimal (Tidak boleh negatif dan harus berupa Angka)" << endl;
     while(true){
         cin >> maxDistance;
         if(cin.fail() || maxDistance <= 0){
@@ -165,37 +185,48 @@ int main(){
             cin.ignore();
             cin.sync();
         } else {
+            cout << endl;
             break;
         }
     }
 
-
-    transform(stringToTest.begin(),stringToTest.end(),stringToTest.begin(), ::tolower); 
+    transform(stringToTest.begin(),stringToTest.end(),stringToTest.begin(), ::tolower);
 
     bool ketemu = false;
 
-   for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ //test outuput map
+   for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ // Hitung Distance
     int distance = edit_distance(stringToTest,a->first);
     distanceValue[a->first] = distance;
 
-    //untuk print string yang distancenya kurang dari max distance
-    if(distance <= maxDistance){
+    if(distance <= maxDistance){ //Masukkan ke Map
       words.push_back(make_pair(distance,a->first));
-      //cout<< a->first <<" "<< distance <<endl;
         ketemu = true;
     }
   }
 
-   sort(words.begin(),words.end()); //butuh function sort sendiri
-
    if (ketemu){
-     //Qsort(0, words.size()-1);
-     sort(words.begin(),words.end()); //buat perbandingan
-     }
+     Qsort(0, words.size()-1);
+     QsortString(0, words.size()-1);
+     Qsort(0, words.size()-1);
+    }
 
-   
+
+    //For Output Manipulation Purposes
+    int longestWordEver = 0;
+    for (VECTOR::const_iterator pos = words.begin(); pos!=words.end();++pos){
+        if(pos->second.length() > longestWordEver){
+            longestWordEver = pos->second.length();
+        }
+     }
+    int numberLength = 0;
+    for(int x = maxDistance; x!=0 ; x /= 10, numberLength++);
+
+
    for (VECTOR::const_iterator pos = words.begin(); pos!=words.end();++pos){
-     cout<< pos->second <<" \t| "<<pos->first<<" \t| "<<sentence[pos->second]<< endl;
+     cout.width(longestWordEver);
+     cout << pos->second << " |";
+     cout.width(numberLength + 1);
+     cout << pos->first<<" | " <<sentence[pos->second]<< endl;
    }
 
     if(!ketemu){
