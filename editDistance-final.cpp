@@ -40,7 +40,6 @@ void swapSecond(string &a, string &b){
   b = temp;
 }//end swap2nd
 
-
 void Qsort(int a, int b){
   int pivot, left, right;
 
@@ -57,15 +56,21 @@ void Qsort(int a, int b){
       if (left <= right){
 	swapFirst( ((words.begin()+left)->first),((words.begin()+right)->first) );
 	swapSecond((words.begin()+left)->second,(words.begin()+right)->second);
+
 	left++;
 	right--;
       }
 
       }//end while(left<=right)
+
+    if (a < right)
+            Qsort(a, right);
+    if (left < b)
+            Qsort(left, b);
+
   }//end if
 
 }//end Qsort
-
 
 void QsortString(int a, int b){
   string pivot;
@@ -78,8 +83,8 @@ void QsortString(int a, int b){
     right = b;
 
     while (left <= right){
-      while((words.begin()+left)->second < pivot) left++;
-      while((words.begin()+right)->second > pivot) right--;
+      while((words.begin()+left)->second.compare(pivot) < 0) left++;
+      while((words.begin()+right)->second.compare(pivot) > 0) right--;
 
       if (left <= right){
 	swapFirst( ((words.begin()+left)->first),((words.begin()+right)->first) );
@@ -89,6 +94,12 @@ void QsortString(int a, int b){
       }
 
     }
+
+    if (a < right)
+            QsortString(a, right);
+    if (left < b)
+            QsortString(left, b);
+
   }
 }//end qsortstring
 
@@ -166,10 +177,6 @@ int main(){
 
     data.close();
 
- /* for (map<string,int>::iterator a=sentence.begin();a!=sentence.end();++a){ //test outuput map
-    //cout<< a->first<<" "<<a->second<<endl;
-  } */
-
     int maxDistance;
     string stringToTest;
 
@@ -205,9 +212,23 @@ int main(){
   }
 
    if (ketemu){
-     Qsort(0, words.size()-1);
-     QsortString(0, words.size()-1);
-     Qsort(0, words.size()-1);
+
+    //initial sort
+     Qsort(0,words.size()-1);
+
+     //Sort per-part
+     int indexPartisi1;
+     int indexPartisi2;
+     int nilaiIndexPartisi;
+     for(indexPartisi1 = 0, indexPartisi2 = 0, nilaiIndexPartisi=(words.begin()+indexPartisi1)->first ;indexPartisi2<words.size();indexPartisi2++){
+        if((words.begin()+indexPartisi2)->first != nilaiIndexPartisi){
+            QsortString(indexPartisi1,indexPartisi2-1);
+            indexPartisi1 = indexPartisi2;
+            nilaiIndexPartisi = (words.begin()+indexPartisi1)->first;
+        }
+     }
+     QsortString(indexPartisi1,indexPartisi2-1);
+
     }
 
 
