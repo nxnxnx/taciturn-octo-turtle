@@ -187,7 +187,7 @@ int main(){
     cout << endl << "Masukkan Distance Maksimal (Tidak boleh negatif dan harus berupa Angka)" << endl;
     while(true){
         cin >> maxDistance;
-        if(cin.fail() || maxDistance <= 0){
+        if(cin.fail() || maxDistance < 0){
             cout << "Salah, Ulangi" << endl;
             cin.ignore();
             cin.sync();
