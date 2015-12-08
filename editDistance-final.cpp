@@ -153,23 +153,22 @@ int main(){
 
   while(!data.eof()){
 
-		  string input;
-		  string t;
-		  getline(data,t);
-		  istringstream iss(t);
-		  while(iss>>input){
-
+        string input;
+        while(getline(data,input)){
 		    string toSentence="";
 
 		    for (int a=0;input.length()>a;++a){
-		      if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39))
-                toSentence += input[a];
-		      else {
-			if (toSentence == "");
-			else entrySentence(toSentence);
 
-			toSentence = "";
-		      }
+                if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39))
+
+                    toSentence += input[a];
+
+                else {
+                    if (toSentence == "");
+                        else entrySentence(toSentence);
+
+                    toSentence = "";
+                }
 		    }
 		    //entrySentence(input);
 		  }//end while loop
@@ -197,7 +196,7 @@ int main(){
         }
     }
 
-    transform(stringToTest.begin(),stringToTest.end(),stringToTest.begin(), ::tolower);
+    //transform(stringToTest.begin(),stringToTest.end(),stringToTest.begin(), ::tolower);
 
     bool ketemu = false;
 
@@ -251,7 +250,7 @@ int main(){
    }
 
     if(!ketemu){
-      string Kappa = "( ͡° ͜ʖ ͡°) You've been spooked by dongerino. Move along ( ͡° ͜ʖ ͡°)\n";
+      string Kappa = "No Match Found \n";
       cout << Kappa << endl;
     }
 
