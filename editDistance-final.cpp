@@ -187,9 +187,11 @@ int main(){
     while(true){
         cin >> maxDistance;
         if(cin.fail() || maxDistance < 0){
-            cout << "Salah, Ulangi" << endl;
+            cin.clear();
             cin.ignore();
             cin.sync();
+            cout << endl;
+            cout << "Salah, Ulangi" << endl;
         } else {
             cout << endl;
             break;
