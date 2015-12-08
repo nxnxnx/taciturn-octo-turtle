@@ -1,15 +1,11 @@
 //editDistance-final.cpp
 
-#include <stdio.h>
 #include <string>
 #include <map>
 #include <algorithm>
-#include <sstream>
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string>
-#include <utility>
 #include <iomanip>
 
 
