@@ -19,6 +19,7 @@ typedef vector<pair <int, string> > VECTOR;
 
 void entrySentence(string inp){
   transform(inp.begin(), inp.end(), inp.begin(), ::tolower);
+
   if (sentence[inp] ==NULL) sentence[inp] = 1;
   else sentence[inp]++;
 
@@ -161,7 +162,6 @@ int main(){
         string input;
         while(getline(data,input)){
 		    string toSentence="";
-
 		    for (int a=0;input.length()>a;++a){
 
                 if (( int(input[a])>=48 && input[a]<=57 ) || ( int(input[a])>=65 && input[a]<=90 ) || ( int(input[a])>=97 && input[a]<=122 ) || int(input[a]==39))
@@ -187,7 +187,7 @@ int main(){
     cout << endl << "Masukkan String untuk di test" << endl;
     getline(cin,stringToTest,'\n');
     cout << endl;
-
+    transform(stringToTest.begin(), stringToTest.end(), stringToTest.begin(), ::tolower);
     cout << endl << "Masukkan Distance Maksimal (Tidak boleh negatif dan harus berupa Angka)" << endl;
     while(true){
         cin >> maxDistance;
