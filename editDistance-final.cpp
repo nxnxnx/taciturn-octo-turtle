@@ -146,6 +146,15 @@ int main(){
 
   fstream data;
   data.open("hound.txt");
+    if(!data.is_open())
+    {
+        cout << "No \"hound.txt\" found" << endl;
+        string dummykian;
+        cout << "\nTekan enter untuk keluar" << endl;
+        getline(cin,dummykian);
+
+        return 0;
+    }
 
   while(!data.eof()){
 
@@ -252,4 +261,10 @@ int main(){
       cout << Kappa << endl;
     }
 
+    cin.ignore();
+    string dummy;
+    cout << "\nTekan enter untuk keluar" << endl;
+    getline(cin,dummy);
+
+    return 0;
 }//end
